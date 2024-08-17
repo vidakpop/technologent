@@ -137,9 +137,13 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 JAZZMIN_SETTINGS ={
     'site_header':"TECHNOLOGENT",
-    'site_brand':"  TECHNOLOGENT ADMIN",
-    'site_logo':"assets/images/logo.png",
+    'site_brand':"  TECHNOLOGENT",
+    'site_logo':"assets/images/logo/logo.png",
+    "login_logo": "assets/images/logo/logo.png",
+    "site_logo_classes": "img-circle",
+    "welcome_sign": "Welcome to the Admin Panel",
     'copyright':"https://github.com/vidakpop",
 }
