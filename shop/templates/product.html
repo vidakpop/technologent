@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+
+<div class="product-page-container">
+
+    <!-- Product Image and Details -->
+    <div class="product-display">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+        <div class="product-details">
+            <h2 class="product-title">{{ product.name }}</h2>
+            <p class="product-description">{{ product.description }}</p>
+            {% if product.on_sale %}
+            <p class="product-price">Ksh.{{product.sale_price}}</p>
+             <del>Ksh.{{product.price}}</del>
+            {% else %}
+            <p class="product-price">Price: Ksh.{{ product.price }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Buttons for Shop Location and Order Delivery -->
+    <div class="product-actions">
+        <button class="btn btn-location" onclick="showLocationPopup()">Visit Shop Location</button>
+        <button class="btn btn-delivery" onclick="showDeliveryPopup()">Order Delivery</button>
+    </div>
+
+</div>
+
+<!-- Location Popup -->
+<div id="location-popup" class="popup-overlay">
+    <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('location-popup')">&times;</span>
+        <h3>Find Us Here!</h3>
+        <div class="popup-map">
+            <!-- Embed Google Map Here -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3396.5073075647524!2d37.043856999999996!3d-1.439573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMcKwMjYnMjIuNSJTIDM3wrAwMiczNy45IkU!5e1!3m2!1sen!2ske!4v1723813517022!5m2!1sen!2ske" width="300" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <a href="https://maps.app.goo.gl/Br2SnVXj8YwU8kM28" target="https://maps.app.goo.gl/Br2SnVXj8YwU8kM28" class="btn btn-directions">Get Directions</a>
+    </div>
+</div>
+
+<!-- Delivery Popup -->
+<div id="delivery-popup" class="popup-overlay">
+    <div class="popup-content">
+        <span class="popup-close" onclick="closePopup('delivery-popup')">&times;</span>
+        <h3>Order Delivery</h3>
+        <p>Call us at: <a href="tel:+254798591299" class="phone-number">+254 798 591 299</a></p>
+        <p>Or send a WhatsApp message:</p>
+        <a href="https://wa.me/254798591299?text=Hello%20Technologent,%20I%20would%20like%20to%20place%20an%20order.%20My%20name%20is%20[Your%20Name]%20and%20my%20address%20is%20[Your%20Address]." target="_blank" class="btn btn-whatsapp">Send WhatsApp Message</a>
+    </div>
+</div>
+
+<style>
+    .product-page-container {
+        text-align: center;
+        margin: 50px auto;
+        max-width: 600px;
+    }
+
+    .product-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .product-details {
+        background-color: #FFD700;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .product-title {
+        font-size: 2em;
+        color: #333;
+    }
+
+    .product-description {
+        font-size: 1.2em;
+        margin: 15px 0;
+    }
+
+    .product-price {
+        font-size: 1.5em;
+        color: #d9534f;
+    }
+
+    .product-actions {
+        margin-top: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        margin: 10px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    .btn-directions,
+    .btn-whatsapp {
+        margin-top: 20px;
+        display: block;
+        background-color: #28a745;
+    }
+
+    .btn-whatsapp:hover {
+        background-color: #218838;
+    }
+
+    .phone-number {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .phone-number:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<script>
+    function showLocationPopup() {
+        document.getElementById('location-popup').style.display = 'flex';
+    }
+
+    function showDeliveryPopup() {
+        document.getElementById('delivery-popup').style.display = 'flex';
+    }
+
+    function closePopup(popupId) {
+        document.getElementById(popupId).style.display = 'none';
+    }
+</script>
+
+{% endblock %}
