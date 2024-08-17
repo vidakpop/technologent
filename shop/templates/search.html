@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+<div class="product-container">
+
+    <div class="container">
+
+
+      <!--
+        - SIDEBAR
+      -->
+
+      <div class="sidebar  has-scrollbar" data-mobile-menu>
+
+        <div class="sidebar-category">
+
+          <div class="sidebar-top">
+            <h2 class="sidebar-title">Category</h2>
+
+            <button class="sidebar-close-btn" data-mobile-menu-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+          
+          <ul class="sidebar-menu-category-list">
+              {% for category in categories %}
+            <li class="sidebar-menu-category">
+
+              <button class="sidebar-accordion-menu" data-accordion-btn>
+
+                <div class="menu-title-flex">
+                 
+
+                    <a href="{% url 'category' category.name %}" class="menu-title">{{category.name}} </a>
+                </div>
+
+                
+
+              </button>
+              
+            </li>
+            {% endfor %}
+
+
+           
+
+            
+
+          </ul>
+
+        </div>
+
+        
+
+      </div>
+
+
+
+      <div class="product-box">
+
+       
+
+        <!--
+          - PRODUCT FEATURED
+        -->
+
+       
+
+        <!--
+          - PRODUCT GRID
+        -->
+
+        <div class="product-main">
+    <h2>Search Results for "{{ query }}"</h2>
+    <div class="product-grid">
+    {% if results %}
+        <ul>
+            {% for product in results %}
+            {% if product.on_sale %}
+            <div class="showcase">
+            
+                <div class="showcase-banner">
+
+                  <a href="{% url 'product' product.id %}">
+                    <img src="{{product.image.url}}" alt="..." width="300" >
+                  </a>
+                  <p class="showcase-badge angle black">Offer!</p>
+
+                  
+
+                  
+
+                </div>
+
+                <div class="showcase-content">
+
+                  <a href="#" class="showcase-category">{{product.category}}</a>
+
+                  <a href="#">
+                    <h3 class="showcase-title">{{product.name}}</h3>
+                  </a>
+
+                  <div class="showcase-rating">
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                    <ion-icon name="star-outline"></ion-icon>
+                  </div>
+
+                  <div class="price-box">
+                    <p class="price">Ksh.{{product.sale_price}}</p>
+                    <del>Ksh.{{product.price}}</del>
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            {% else %}
+          <div class="showcase">
+            
+            <div class="showcase-banner">
+
+              <a href="{% url 'product' product.id %}">
+                <img src="{{product.image.url}}" alt="..." width="300" >
+              </a>
+              
+
+              
+
+              
+
+            </div>
+
+            <div class="showcase-content">
+
+              <a href="#" class="showcase-category">{{product.category}}</a>
+
+              <a href="#">
+                <h3 class="showcase-title">{{product.name}}</h3>
+              </a>
+
+              <div class="showcase-rating">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="price-box">
+                <p class="price">Ksh.{{product.price}}</p>
+               
+              </div>
+
+            </div>
+
+          </div>
+          {% endif %}
+            {% endfor %}
+        </ul>
+    </div>    
+    {% else %}
+        <p>No products found matching your search criteria.</p>
+    {% endif %}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

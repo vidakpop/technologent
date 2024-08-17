@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from.models import Category, Product
 from django.contrib import messages
+from django.db.models import Q
 
 def home(request):
     products=Product.objects.all()
@@ -24,3 +25,16 @@ def category(request,foo):
     except:
         messages.success(request,'That category does not exist...')
         return redirect('home')
+    
+def product_search(request):
+    query = request.GET.get('search')
+    if query:
+        results = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+    else:
+        results = Product.objects.none()
+
+    context = {
+        'results': results,
+        'query': query,
+    }
+    return render(request, 'search.html', context)
