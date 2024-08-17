@@ -136,3 +136,10 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+JAZZMIN_SETTINGS ={
+    'site_header':"TECHNOLOGENT",
+    'site_brand':"  TECHNOLOGENT ADMIN",
+    'site_logo':"assets/images/logo.png",
+    'copyright':"https://github.com/vidakpop",
+}
