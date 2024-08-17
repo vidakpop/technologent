@@ -158,77 +158,199 @@
 
     </div>
 
-    <nav class="desktop-navigation-menu">
-
+    <nav class="navigation-menu">
       <div class="container">
-
-        <ul class="desktop-menu-category-list">
-
+    
+        <!-- Hamburger Menu Icon for Mobile -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+          <img src="{% static 'assets/images/menu.png' %}" alt="Menu" class="hamburger-icon">
+        </button>
+    
+        <!-- Main Menu -->
+        <ul class="menu-category-list" id="menu">
+    
           <li class="menu-category">
             <a href="{% url 'home' %}" class="menu-title">Home</a>
           </li>
-
-          <li class="menu-category">
+    
+          <li class="menu-category dropdown">
             <a href="{% url 'home' %}" class="menu-title">Categories</a>
-
+    
             <div class="dropdown-panel">
+              <ul class="dropdown-panel-grid">
                 {% for category in categories %}
-              <ul class="dropdown-panel-list">
-
-                <li class="menu-title">
-                  <a href="{% url 'category' category.name %}">{{category.name}}</a>
+                <li class="dropdown-item">
+                  <a href="{% url 'category' category.name %}">{{ category.name }}</a>
                 </li>
-
-                
+                {% endfor %}
               </ul>
-            
-              
-              {% endfor %}
-
             </div>
           </li>
-
+    
           <li class="menu-category">
             <a href="#location" class="menu-title">Location</a>
           </li>
-
-          
-          
-
+    
         </ul>
-
-        <ul class="menu-social-container">
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="social-link">
-              <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
+    
       </div>
-
     </nav>
-
+    
+    <script>
+      function toggleMobileMenu() {
+        const menu = document.getElementById('menu');
+        menu.classList.toggle('active');
+      }
+    
+      // Show dropdown on hover for desktop view
+      document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.querySelector('.menu-category.dropdown');
+    
+        dropdown.addEventListener('mouseenter', function() {
+          const panel = this.querySelector('.dropdown-panel');
+          panel.style.display = 'block';
+        });
+    
+        dropdown.addEventListener('mouseleave', function() {
+          const panel = this.querySelector('.dropdown-panel');
+          panel.style.display = 'none';
+        });
+      });
+    </script>
+    
+    <style>
+    /* Base styles */
+    .navigation-menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .menu-category-list {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .menu-category {
+      margin-right: 20px;
+      position: relative;
+    }
+    
+    .menu-title {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 18px;
+      transition: color 0.3s ease-in-out;
+    }
+    
+    .menu-title:hover {
+      color: #ffcc00;
+    }
+    
+    .dropdown-panel {
+      display: none;
+      position: absolute;
+      background-color: #333333;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+      top: 100%;
+      left: 0;
+    }
+    
+    .dropdown-panel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .dropdown-item {
+      margin-bottom: 10px;
+    }
+    
+    .dropdown-item a {
+     
+      text-decoration: none;
+      transition: color 0.3s ease-in-out;
+    }
+    
+    .dropdown-item a:hover {
+      color: #ffcc00;
+    }
+    
+    /* Mobile styles */
+    .hamburger-icon {
+      width: 30px;
+      height: 30px;
+      display: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+    
+    .mobile-menu-toggle {
+      display: none;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+    
+      .hamburger-icon {
+        display: block;
+      }
+    
+      .mobile-menu-toggle {
+        display: block;
+      }
+    
+      .menu-category-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #1a1a1a;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        z-index: 10;
+      }
+    
+      .menu-category-list.active {
+        display: flex;
+      }
+    
+      .menu-category {
+        margin: 10px 0;
+        text-align: center;
+      }
+    
+      .dropdown-panel {
+        display: none;
+        position: relative;
+        min-width: 100%;
+        padding: 10px;
+      }
+    
+      .dropdown-panel-grid {
+        grid-template-columns: 1fr;
+      }
+    
+      .menu-category.dropdown.active .dropdown-panel {
+        display: block;
+      }
+    }
+    </style>
+    
+    
+    
   </header>
 
 
@@ -248,25 +370,28 @@
           <div class="slider-item active">
             <img src="{% static 'assets/images/electronics.jpeg' %}" alt="Latest Electronics Sale" class="banner-img">
             <div class="banner-content">
-              <p class="banner-subtitle">Hot Deals</p>
-              <h2 class="banner-title">Best Electronics Sale</h2>
-              <a href="#" class="banner-btn">Shop now</a>
+              <p class="banner-subtitle">Welcome to Technologent!</p>
+<h2 class="banner-title">One-Stop Shop for All Things Electronic</h2>
+<p class="banner-subtitle">Explore the latest deals and discounts today!</p>
+              
             </div>
           </div>
           <div class="slider-item">
             <img src="{% static 'assets/images/electronics.jpeg' %}" alt="Beauty Products Discount" class="banner-img">
             <div class="banner-content">
-              <p class="banner-subtitle">Beauty Essentials</p>
-              <h2 class="banner-title">Exclusive Beauty Products</h2>
-              <a href="#" class="banner-btn">Shop now</a>
+              <p class="banner-subtitle">Get Ready to Upgrade!</p>
+<h2 class="banner-title">Your Ultimate Electronics Destination</h2>
+<p class="banner-subtitle">Discover the best electronics at unbeatable prices!</p>
+             
             </div>
           </div>
           <div class="slider-item">
             <img src="{% static 'assets/images/electronics.jpeg' %}" alt="Tech and Beauty Combo Sale" class="banner-img">
             <div class="banner-content">
-              <p class="banner-subtitle">Special Combo</p>
-              <h2 class="banner-title">Tech & Beauty Combo Sale</h2>
-              <a href="#" class="banner-btn">Shop now</a>
+              <p class="banner-subtitle">Experience the Future of Electronics!</p>
+<h2 class="banner-title"> Where Innovation Meets Savings</h2>
+<p class="banner-subtitle">Stay ahead of the curve with our latest deals and offers!</p>
+              
             </div>
           </div>
           <!-- Add navigation buttons -->

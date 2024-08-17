@@ -76,7 +76,7 @@
 
           <div class="product-main">
 
-            <h2 class="title">New Products</h2>
+            <h2 class="title">All Products</h2>
 
             <div class="product-grid">
                 {% for product in products %}
@@ -85,7 +85,9 @@
                 
                     <div class="showcase-banner">
     
-                      <img src="{{product.image.url}}" alt="..." width="300" >
+                      <a href="{% url 'product' product.id %}">
+                        <img src="{{product.image.url}}" alt="..." width="300" >
+                      </a>
                       <p class="showcase-badge angle black">Offer!</p>
     
                       
@@ -114,6 +116,7 @@
                         <p class="price">Ksh.{{product.sale_price}}</p>
                         <del>Ksh.{{product.price}}</del>
                       </div>
+
     
                     </div>
     
@@ -125,8 +128,9 @@
                 
                 <div class="showcase-banner">
 
-                  <img src="{{product.image.url}}" alt="..." width="300" >
-                  
+                  <a href="{% url 'product' product.id %}">
+                    <img src="{{product.image.url}}" alt="..." width="300" >
+                  </a>
 
                   
 
